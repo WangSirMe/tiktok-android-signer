@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package ttdevice;
+
+option go_package = "github.com/WangSirMe/tiktok-android-signer/crypto/ttdevice";
+
+// DeviceInfo 是 TikTok native app /sdi/get_token 请求明文 field1 的设备详情 message。
+//
+// 字段定义由真机抓包样本(MI 6X / Android 9 / alisg-TW)的 protobuf wire 逆向而来,
+// 逐字节对齐 605B 固定档。proto.Marshal 输出与原 hex 模板 IDENTICAL(已实测)。
+// 原因:本 message 无任何字段等于 proto3 默认值(字符串占位用 "!notset!",整数占位
+// 用 1999997),默认值省略规则不触发;protoc 按字段号升序写,与抓包顺序一致。
+//
+// 仅 install_uuid(field 26)为动态值,由 register 生成的 cdid 注入;其余字段为
+// 固定设备档值。换设备档需重新抓包并更新本结构。
+message DeviceInfo {
+  string device_brand       = 1;   // "!notset!"
+  string manufacturer       = 2;   // "xiaomi"
+  string device_model       = 3;   // "MI 6X"
+  string device_name        = 4;   // "!notset!"
+  string os_name            = 5;   // "Android"
+  string os_version         = 6;   // "9"
+  string screen_resolution  = 7;   // "1080*2160"
+  int64  screen_dpi         = 8;   // 880
+  string rom_build_id       = 9;   // "PKQ1.180904.001"
+  int64  field10            = 10;  // 3115884974
+  string locale             = 11;  // "zh_CN"
+  string timezone           = 12;  // "Asia/Shanghai,8"
+  int64  tz_offset          = 13;  // 2748
+  int64  field14            = 14;  // 200
+  int64  mem_total_bytes    = 15;  // 7842717696  (~7.3G RAM)
+  int64  storage_total_a    = 16;  // 108308496384
+  int64  storage_total_b    = 17;  // 108308496384
+  int64  storage_free       = 18;  // 33828290560
+  string id_slot_19         = 19;  // "!notset!"(IMEI?)
+  string id_slot_20         = 20;  // "!notset!"(MAC?)
+  string id_slot_21         = 21;  // "!notset!"(serial?)
+  string id_slot_22         = 22;  // "!notset!"
+  string id_slot_23         = 23;  // "!notset!"
+  string device_fingerprint = 24;  // base64 哈希
+  int64  timestamp_a        = 25;  // 3568087524
+  string install_uuid       = 26;  // 动态:register 生成的 cdid
+  int64  disk_capacity      = 27;  // 743640924160
+  string field28            = 28;  // "!notset!"
+  int64  sentinel_29        = 29;  // 1999997(占位)
+  int64  sentinel_30        = 30;  // 1999997
+  string slot_31            = 31;  // "!notset!"
+  string slot_32            = 32;  // "!notset!"
+  string slot_33            = 33;  // "!notset!"
+  string slot_34            = 34;  // "!notset!"
+  string slot_35            = 35;  // "!notset!"
+  int64  sentinel_36        = 36;  // 1999997
+  int64  sentinel_37        = 37;  // 1999997
+  string slot_38            = 38;  // "!notset!"
+  string slot_39            = 39;  // "!notset!"
+  string net_ip_list        = 40;  // '["10.0.0.1","0.0.0.0"]'
+  int64  sentinel_41        = 41;  // 1999997
+  int64  sentinel_42        = 42;  // 1999997
+  string slot_44            = 44;  // "!notset!"
+  int64  field45            = 45;  // 3419633858
+  int64  timestamp_b        = 46;  // 3568087566
+  string apk_path           = 47;  // /data/app/com.zhiliaoapp.musically-.../base.apk
+  int64  field48            = 48;  // 56
+  int64  sentinel_49        = 49;  // 1999997
+  string slot_50            = 50;  // "!notset!"
+  int64  sentinel_51        = 51;  // 1999997
+  int64  sentinel_52        = 52;  // 1999997
+  string slot_53            = 53;  // "!notset!"
+  string slot_54            = 54;  // "!notset!"
+  string slot_55            = 55;  // "!notset!"
+  int64  sentinel_56        = 56;  // 1999997
+}

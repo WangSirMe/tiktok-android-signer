@@ -1,0 +1,11 @@
+# Go
+*.exe
+cmd/demo/demo
+
+# 本地环境
+.env
+
+# IDE/OS
+.idea/
+.vscode/
+.DS_Store
